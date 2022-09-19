@@ -1,5 +1,6 @@
+const { query } = require('express');
 var mongoose = require('mongoose');
-const Pastura = require('../models/pastura.model');
+const Pastura = require('../models/pastura2.model');
 exports.test = function (req, res) {
  res.send('Hola Jugador');
 };
@@ -52,28 +53,59 @@ exports.pastura_details = function (req, res, next) {
 };
 
 exports.pastura_all = function (req, res, next) {
-    Jugador.find({}, function(err, pasturas) {
+    Pastura.find({}, function(err, pasturas) {
         var pasturaMap = [];
-    
         pasturas.forEach(function(pastura) {
-        //userMap[user._id] = user;
         pasturaMap.push(pastura);
         });
-    
-        //res.send(userMap); 
-        res.render('index.ejs', {
+        res.send({
             pasturaMap: pasturaMap
         });
     })
 };
 
-exports.pastura_findByIdAndUpdate = function (req, res, next) {
-    let player = Jugador.findByIdAndUpdate(req.params.id , {winsX: req.body.winsX, winsO: req.body.winsO} ,function (err, jugador) {
+/*exports.pastura_findByIdAndUpdate = function (req, res, next) {
+    let pastura = Pastura.findByIdAndUpdate(req.params.id , {winsX: req.body.winsX, winsO: req.body.winsO} ,function (err, jugador) {
         if (err) return next(err);
             res.send("Actualización de Datos Exitosa!!");
             }
         )  
+};*/
+
+exports.pastura_findG = function (req, res, next) {
+    Pastura.find({ familia:req.params.familia }, function(err, pasturas) {
+        var pasturaMap = [];
+        pasturas.forEach(function(pastura) {
+        pasturaMap.push(pastura);
+        }); 
+        res.send({
+            pasturaMap: pasturaMap
+        });
+    })
 };
+
+exports.pastura_findE = function (req, res, next) {
+    var data = req.body;
+    console.log(data);
+
+    Pastura.find( data , function(err, pasturas) {
+        var pasturaMap = [];
+        pasturas.forEach(function(pastura) {
+        pasturaMap.push(pastura);
+        }); 
+        res.send({
+            pasturaMap: pasturaMap
+        });
+    })
+};
+
+/*var data = req.body;
+
+   data.forEach(function (item) {
+       console.log(item.id);
+       console.log(item.Name);
+   });
+*/
 
 /*exports.pastura_findLast = function (req, res, next) {
     //let player = Jugador.find().sort({ createdAt: -1 }).limit(10);
