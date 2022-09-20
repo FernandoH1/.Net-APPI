@@ -87,8 +87,31 @@ exports.pastura_findG = function (req, res, next) {
 exports.pastura_findE = function (req, res, next) {
     var data = req.body;
     console.log(data);
+    var data2 = {};
 
-    Pastura.find( data , function(err, pasturas) {
+    // Object.keys(data).forEach(key => {  
+
+    //     if( data.value == null ){
+    //         console.log("asdasd"+ key);
+    //     }
+
+    //     console.log(key +':'+ data[value])
+    //   })
+
+      Object.entries(data).forEach(([key, value]) => {
+
+        if( `${value}` != "" ){
+            data2[`${key}`] = `${value}`;
+            // data2 = `${key}: ${value}`;
+        }
+
+        console.log(`${key}: ${value}`);
+      })
+
+      console.log(data2);
+      
+
+    Pastura.find( data2 , function(err, pasturas) {
         var pasturaMap = [];
         pasturas.forEach(function(pastura) {
         pasturaMap.push(pastura);
