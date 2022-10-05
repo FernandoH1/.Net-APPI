@@ -35,6 +35,7 @@ exports.pastura_create = function (req, res, next) {
     ciclo_productivo: req.body.ciclo_productivo,
     tipo_productivo: req.body.tipo_productivo,
     tipo_de_campo: req.body.tipo_de_campo,
+    img: req.body.img,
     }
     );
     console.log(req.body);

@@ -26,7 +26,10 @@ observaciones_generales: {type:String},
 ciclo_de_vida: {type: String},
 ciclo_productivo: {type: String},
 tipo_productivo: {type: String},
-tipo_de_campo: {type:String}
+tipo_de_campo: {type:String},
+img:{data: Buffer,
+    contentType: String
+},
 });
 // Exportar el modelo
 module.exports = mongoose.model('Pastura', PasturaSchema);
