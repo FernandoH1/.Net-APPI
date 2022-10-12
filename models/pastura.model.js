@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var PasturaSchema = new Schema({
  _id: mongoose.Schema.Types.ObjectId,
+ id: Number,
  familia: {type: String},
  especie: {type: String},
  tipo_vegetativo: {type: String},
@@ -31,5 +32,15 @@ img:{data: Buffer,
     contentType: String
 },
 });
+
+PasturaSchema.pre("save", function(next){
+    var pastura = this;
+    mongoose.model('Pastura', PasturaSchema).countDocuments(function(error, cont){
+        if(error) return next(error);
+        pastura.id = cont+1;
+        next();
+    });
+});
+
 // Exportar el modelo
 module.exports = mongoose.model('Pastura', PasturaSchema);

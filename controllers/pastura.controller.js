@@ -1,9 +1,8 @@
-const { query } = require('express');
 var mongoose = require('mongoose');
-const { db } = require('../models/pastura2.model');
-const Pastura = require('../models/pastura2.model');
+const Pastura = require('../models/pastura.model');
+
 exports.test = function (req, res) {
- res.send('Hola Jugador');
+ res.send('Pastura Iniciada!');
 };
 
 exports.pastura_create = function (req, res, next) {
@@ -60,9 +59,9 @@ exports.pastura_all = function (req, res, next) {
         pasturas.forEach(function(pastura) {
         pasturaMap.push(pastura);
         });
-        res.send({
-            pasturaMap: pasturaMap
-        });
+        res.setHeader("X-Total-Count", pasturas.length);
+        res.setHeader("Content-Range", "pasturas 0-20/" + pasturas.length);
+        res.send(pasturaMap);
     })
 };
 
@@ -80,14 +79,12 @@ exports.pastura_findG = function (req, res, next) {
 
 exports.pastura_valores = function (req, res, next) {
     Pastura.collection.distinct( req.params.campo , function(error, results){
-        //console.log(results);
         res.json(results);
     });   
 }
 
 exports.pastura_findE = function (req, res, next) {
     var data = req.body;
-    //console.log(data);
     var data2 = {};
 
       Object.entries(data).forEach(([key, value]) => {
@@ -95,9 +92,7 @@ exports.pastura_findE = function (req, res, next) {
         if( `${value}` != "" ){
             data2[`${key}`] = `${value}`;
         }
-        //console.log(`${key}: ${value}`);
       })
-      //console.log(data2);
       
 
     Pastura.find( data2 , function(err, pasturas) {
