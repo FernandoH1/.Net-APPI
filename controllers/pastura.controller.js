@@ -42,7 +42,7 @@ exports.pastura_create = function (req, res, next) {
     if (err) {
     return next(err);
     }
-    res.json({resultado: "Pastura Creada con Éxito!!"});
+    res.json("Pastura Creada con Éxito!!");
     })
 };
 
@@ -104,4 +104,48 @@ exports.pastura_findE = function (req, res, next) {
             pasturaMap: pasturaMap
         });
     })
+};
+
+exports.pastura_findByIdAndUpdate = function (req, res, next) {
+    let pastura = Pastura.findByIdAndUpdate(req.params.id , 
+        {familia: req.body.familia,
+            especie: req.body.especie,
+            tipo_vegetativo: req.body.tipo_vegetativo,
+            rizoma_engrozado: req.body.rizoma_engrozado,
+            macollo1: req.body.macollo1,
+            macollo2: req.body.macollo2,
+            consistecia_de_la_ligula: req.body.consistecia_de_la_ligula,
+            forma_de_la_ligula: req.body.forma_de_la_ligula,
+            tamanio: req.body.tamanio,
+            otra_caracteristica_ligula: req.body.otra_caracteristica_ligula,
+            color_de_la_ligula: req.body.color_de_la_ligula,
+            forma_de_la_lamina: req.body.forma_de_la_lamina,
+            canaliculada: req.body.canaliculada,
+            tipo_de_lamina: req.body.tipo_de_lamina,
+            apice: req.body.apice,
+            nervadura_central_marcada: req.body.nervadura_central_marcada,
+            observaciones: req.body.observaciones,
+            pelos: req.body.pelos,
+            ubicación_de_pelos: req.body.ubicación_de_pelos,
+            observacion: req.body.observacion,
+            observaciones_generales: req.body.observaciones_generales,
+            ciclo_de_vida: req.body.ciclo_de_vida,
+            ciclo_productivo: req.body.ciclo_productivo,
+            tipo_productivo: req.body.tipo_productivo,
+            tipo_de_campo: req.body.tipo_de_campo,
+            img: req.body.img} 
+        ,function (err, pastu) {
+        if (err) return next(err);
+            res.send("Pastura Modificada con Éxito!!");
+            }
+        )   
+};
+
+exports.pastura_delete = function (req, res, next) {
+    let pastura = Pastura.findById(req.params.id ,function (err, pastu) {
+        if (err) return next(err);
+        res.send(pastu);
+    });
+    pastura.remove(pastura);
+    res.send("Pastura Eliminada con Éxito!!");
 };
