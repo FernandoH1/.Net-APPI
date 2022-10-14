@@ -150,18 +150,20 @@ exports.pastura_findByIdAndUpdate = function (req, res, next) {
             tipo_productivo: req.body.tipo_productivo,
             tipo_de_campo: req.body.tipo_de_campo,
             img: req.body.img} 
-        ,function (err, pastu) {
+            ,function (err, pastu) {
         if (err) return next(err);
             res.send("Pastura Modificada con Éxito!!");
             }
         )   
 };
 
-exports.pastura_delete = function (req, res, next) {
-    let pastura = Pastura.findById(req.params.id ,function (err, pastu) {
-        if (err) return next(err);
-        res.send(pastu);
-    });
-    pastura.remove(pastura);
-    res.send("Pastura Eliminada con Éxito!!");
+exports.pastura_delete = async (req, res, next) => {
+    try{
+        const pastura = await Pastura.findById(req.params.id);
+        await pastura.remove();
+        //res.send({data: pastura});
+        res.send("Pastura Eliminada con Éxito!!");
+    } catch {
+        res.status(400).send("Error!!");
+    }
 };
