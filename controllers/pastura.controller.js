@@ -42,18 +42,14 @@ exports.pastura_create = function (req, res, next) {
     if (err) {
     return next(err);
     }
-    res.json("Pastura Creada con Éxito!!");
+    res.json(pastura);
     })
 };
 
 exports.pastura_details = function (req, res, next) {
     Pastura.findById(req.params.id, function (err, pastura) {
-        image = Buffer.from(pastura.img.data+","+pastura.img.contentType).toString('ascii');
     if (err) return next(err);
-        res.send({
-            pastura,
-            image
-        });
+        res.send({pastura});
     })
 };
 
@@ -61,17 +57,8 @@ exports.pastura_all = function (req, res, next) {
     Pastura.find({}, function(err, pasturas) {
         var pasturaMap = [];
         pasturas.forEach(function(pastura) {
-
-            var image;
-
-            if( pastura.img.contentType ){
-                image = Buffer.from(pastura.img.data+","+pastura.img.contentType).toString('ascii');
-            }else{
-                image = '';
-            }
-                       
-        pasturaMap.push({pastura, image});
-
+                   
+        pasturaMap.push(pastura);
         });
         res.setHeader("X-Total-Count", pasturas.length);
         res.setHeader("Content-Range", "pasturas 0-20/" + pasturas.length);

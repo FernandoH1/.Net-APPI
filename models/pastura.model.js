@@ -28,18 +28,7 @@ ciclo_de_vida: {type: String},
 ciclo_productivo: {type: String},
 tipo_productivo: {type: String},
 tipo_de_campo: {type:String},
-img:{data: Buffer,
-    contentType: String
-},
-});
-
-PasturaSchema.pre("save", function(next){
-    var pastura = this;
-    mongoose.model('Pastura', PasturaSchema).countDocuments(function(error, cont){
-        if(error) return next(error);
-        pastura.id = cont+1;
-        next();
-    });
+img:{type:String},
 });
 
 // Exportar el modelo
