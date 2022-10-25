@@ -153,70 +153,53 @@ exports.pastura_delete = async (req, res, next) => {
 };
 
 exports.pastura_All_Excel =  async (req, res, next) => {
-        
-        let flag = false;
-        for(let j=0; j< req.body.length; j++){
-            var registrosRepetidos = [];
-           // console.log(req.body[j]["especie"]);
-            //console.log(j);
-            Pastura.findOne({ especie: req.body[j]["especie"]}, function(err, pasturas) {
-                //console.log("a");
-                flag=true;
-               // console.log(pasturas);
-            if(pasturas==null){
-                let pastura = new Pastura(
-                    {
-                    _id: new mongoose.Types.ObjectId(),
-                    familia: req.body[j].familia,
-                    especie: req.body[j].especie,
-                    tipo_vegetativo: req.body[j].tipo_vegetativo,
-                    rizoma_engrozado: req.body[j].rizoma_engrozado,
-                    macollo1: req.body[j].macollo1,
-                    macollo2: req.body[j].macollo2,
-                    consistecia_de_la_ligula: req.body[j].consistecia_de_la_ligula,
-                    forma_de_la_ligula: req.body[j].forma_de_la_ligula,
-                    tamanio: req.body[j].tamanio,
-                    otra_caracteristica_ligula: req.body[j].otra_caracteristica_ligula,
-                    color_de_la_ligula: req.body[j].color_de_la_ligula,
-                    forma_de_la_lamina: req.body[j].forma_de_la_lamina,
-                    canaliculada: req.body[j].canaliculada,
-                    tipo_de_lamina: req.body[j].tipo_de_lamina,
-                    apice: req.body[j].apice,
-                    nervadura_central_marcada: req.body[j].nervadura_central_marcada,
-                    observaciones: req.body[j].observaciones,
-                    pelos: req.body[j].pelos,
-                    ubicación_de_pelos: req.body[j].ubicación_de_pelos,
-                    observacion: req.body[j].observacion,
-                    observaciones_generales: req.body[j].observaciones_generales,
-                    ciclo_de_vida: req.body[j].ciclo_de_vida,
-                    ciclo_productivo: req.body[j].ciclo_productivo,
-                    tipo_productivo: req.body[j].tipo_productivo,
-                    tipo_de_campo: req.body[j].tipo_de_campo,
-                    img: req.body[j].img,
-                    }
-                    );
-                    //pastura.save();
-            }else{
-                registrosRepetidos.push(req.body[j]);
-                //console.log(registrosRepetidos);
-                flag=false;
-            }
 
-            if(j == req.body.length){
-                res.json(
-                    registrosRepetidos
-                );  
+    var registrosRepetidos = [];
+
+    for(let i=0; i < req.body.length; i++) {
+        
+
+        let p = await Pastura.findOne({ especie: req.body[i].Especie});
+
+            if(p == undefined){
+                
+                let pastura1 = new Pastura(
+                    {
+                        _id: new mongoose.Types.ObjectId(),
+                        familia: req.body[i]["Familia"],
+                        especie: req.body[i]["Especie"],
+                        tipo_vegetativo: req.body[i]["Tipo Vegetativo"],
+                        rizoma_engrozado: req.body[i]["Rizoma engrozado"],
+                        macollo1: req.body[i]["Macollo1"],
+                        macollo2: req.body[i]["Macollo2"],
+                        consistecia_de_la_ligula: req.body[i]["Consistecia de la ligula"],
+                        forma_de_la_ligula: req.body[i]["Forma de la ligula"],
+                        tamanio: req.body[i]["Tamaño"],
+                        otra_caracteristica_ligula: req.body[i]["Otra caracteristica ligula"],
+                        color_de_la_ligula: req.body[i]["Color de la ligula"],
+                        forma_de_la_lamina: req.body[i]["Forma de la lamina"],
+                        canaliculada: req.body[i]["Canaliculada"],
+                        tipo_de_lamina: req.body[i]["Tipo de lamina"],
+                        apice: req.body[i]["Apice"],
+                        nervadura_central_marcada: req.body[i]["Nervadura central marcada"],
+                        observaciones: req.body[i]["Observaciones"],
+                        pelos: req.body[i]["Pelos"],
+                        ubicación_de_pelos: req.body[i]["Ubicación de pelos"],
+                        observacion: req.body[i]["Observación"],
+                        observaciones_generales: req.body[i]["Observaciones generales"],
+                        ciclo_de_vida: req.body[i]["Ciclo de vida"],
+                        ciclo_productivo: req.body[i]["Ciclo productivo"],
+                        tipo_productivo: req.body[i]["Tipo productivo"],
+                        tipo_de_campo: req.body[i]["Tipo de campo"]
+                    }     
+                );
+                pastura1.save();
+            }else{
+                registrosRepetidos.push(p);
             }
-            
-        });
-        }
-        // if(registrosRepetidos == []){
-        //     res.send("OK");
-        // }else{
-        //     //console.log(registrosRepetidos);
-        //     console.log("registrosRepetidos");
-        //     res.json(
-        //         registrosRepetidos
-        //     ); 
-        // }    
+    }
+
+    await res.json(
+        registrosRepetidos
+    );   
 };
