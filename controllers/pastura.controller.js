@@ -195,7 +195,7 @@ exports.pastura_All_Excel =  async (req, res, next) => {
                 );
                 pastura1.save();
             }else{
-                registrosRepetidos.push(p);
+                registrosRepetidos.push(req.body[i]);
             }
     }
 
