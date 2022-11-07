@@ -141,6 +141,50 @@ exports.pastura_findByIdAndUpdate = function (req, res, next) {
         )   
 };
 
+exports.pastura_findByEspecieAndUpdate = function (req, res, next) {
+
+    Pastura.findOne({especie: req.params.especie}, function(err, pastura){
+
+        Pastura.findByIdAndUpdate(pastura._id , 
+            {
+                familia: req.body["Familia"],
+                especie: req.body["Especie"],
+                tipo_vegetativo: req.body["Tipo Vegetativo"],
+                rizoma_engrozado: req.body["Rizoma engrozado"],
+                macollo1: req.body["Macollo1"],
+                macollo2: req.body["Macollo2"],
+                consistecia_de_la_ligula: req.body["Consistecia de la ligula"],
+                forma_de_la_ligula: req.body["Forma de la ligula"],
+                tamanio: req.body["Tamaño"],
+                otra_caracteristica_ligula: req.body["Otra caracteristica ligula"],
+                color_de_la_ligula: req.body["Color de la ligula"],
+                forma_de_la_lamina: req.body["Forma de la lamina"],
+                canaliculada: req.body["Canaliculada"],
+                tipo_de_lamina: req.body["Tipo de lamina"],
+                apice: req.body["Apice"],
+                nervadura_central_marcada: req.body["Nervadura central marcada"],
+                observaciones: req.body["Observaciones"],
+                pelos: req.body["Pelos"],
+                ubicación_de_pelos: req.body["Ubicación de pelos"],
+                observacion: req.body["Observación"],
+                observaciones_generales: req.body["Observaciones generales"],
+                ciclo_de_vida: req.body["Ciclo de vida"],
+                ciclo_productivo: req.body["Ciclo productivo"],
+                tipo_productivo: req.body["Tipo productivo"],
+                tipo_de_campo: req.body["Tipo de campo"],
+                img: req.body.img
+            } 
+                ,function (err, pastu) {
+            if (err) return next(err);
+                res.send("Pastura Modificada con Éxito!!");
+                }
+            )   
+    })
+
+    
+
+};
+
 exports.pastura_delete = async (req, res, next) => {
     try{
         const pastura = await Pastura.findById(req.params.id);
