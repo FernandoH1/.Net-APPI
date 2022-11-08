@@ -13,6 +13,7 @@ router.post('/create', pastura_controller.pastura_create);
 router.get('/valores/:campo', pastura_controller.pastura_valores);
 router.post('/update/:id', pastura_controller.pastura_findByIdAndUpdate);
 router.post('/updateEspecie/:especie', pastura_controller.pastura_findByEspecieAndUpdate);
+router.post('/updateEspecieFor', pastura_controller.pastura_findByEspecieAndUpdateFor);
 router.delete('/delete/:id', pastura_controller.pastura_delete);
 
 module.exports = router;

@@ -181,7 +181,50 @@ exports.pastura_findByEspecieAndUpdate = function (req, res, next) {
             )   
     })
 
-    
+};
+
+exports.pastura_findByEspecieAndUpdateFor = async (req, res, next) => {
+
+ 
+
+    for(let i=0; i < req.body.length; i++) {
+
+    // Pastura.findOne({especie: req.body[i]["Especie"]}, function(err, pastura){
+
+        await Pastura.findOneAndUpdate({especie: req.body[i]["Especie"]}, 
+            {
+                familia: req.body[i]["Familia"],
+                especie: req.body[i]["Especie"],
+                tipo_vegetativo: req.body[i]["Tipo Vegetativo"],
+                rizoma_engrozado: req.body[i]["Rizoma engrozado"],
+                macollo1: req.body[i]["Macollo1"],
+                macollo2: req.body[i]["Macollo2"],
+                consistecia_de_la_ligula: req.body[i]["Consistecia de la ligula"],
+                forma_de_la_ligula: req.body[i]["Forma de la ligula"],
+                tamanio: req.body[i]["Tamaño"],
+                otra_caracteristica_ligula: req.body[i]["Otra caracteristica ligula"],
+                color_de_la_ligula: req.body[i]["Color de la ligula"],
+                forma_de_la_lamina: req.body[i]["Forma de la lamina"],
+                canaliculada: req.body[i]["Canaliculada"],
+                tipo_de_lamina: req.body[i]["Tipo de lamina"],
+                apice: req.body[i]["Apice"],
+                nervadura_central_marcada: req.body[i]["Nervadura central marcada"],
+                observaciones: req.body[i]["Observaciones"],
+                pelos: req.body[i]["Pelos"],
+                ubicación_de_pelos: req.body[i]["Ubicación de pelos"],
+                observacion: req.body[i]["Observación"],
+                observaciones_generales: req.body[i]["Observaciones generales"],
+                ciclo_de_vida: req.body[i]["Ciclo de vida"],
+                ciclo_productivo: req.body[i]["Ciclo productivo"],
+                tipo_productivo: req.body[i]["Tipo productivo"],
+                tipo_de_campo: req.body[i]["Tipo de campo"],
+                img: req.body[i].img
+            } 
+
+            )   
+    // })
+}
+await res.send("Pastura Modificada con Éxito!!");
 
 };
 
