@@ -49,3 +49,7 @@ exports.user_all = function (req, res, next) {
     })
 };
 
+exports.user_email = function(req,res,next){
+    User.findOne({email: req.params.email}, function(err, user){res.json(user);})
+}
+
