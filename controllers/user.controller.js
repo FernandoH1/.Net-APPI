@@ -9,20 +9,16 @@ exports.user_create = function (req, res, next) {
     {
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
-    surname: req.body.surname,
-    age: req.body.age,
-    country: req.body.country,
-    phone: req.body.phone,
-    ci: req.body.ci,
     email: req.body.email,
-    sex: req.body.sex,
+    img: req.body.img,
+
     }
     );
     user.save(function (err) {
     if (err) {
     return next(err);
     }
-    res.send("Usuario Creado con Éxito!!");
+    res.json(user);
     })
 };
 
